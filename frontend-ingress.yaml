@@ -1,0 +1,15 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: frontend
+  namespace: ns-user01
+  annotations:
+    kubernetes.io/ingress.class: "traefik"
+spec:
+  rules:
+  - host: gbook.user0X.pl.grupa.iti
+    http:
+      paths:
+      - backend:
+          serviceName: frontend
+          servicePort: 80
