@@ -1,3 +1,5 @@
+#maintenance Jarosław Jeznach, Mirosław Kudła
+
 # kubernetes_learning
 
 1. Utworzenie nowego projektu na Google Cloud Platform.
