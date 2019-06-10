@@ -1,4 +1,4 @@
-#maintenance Jarosław Jeznach, Mirosław Kudła
+# maintenance *Jarosław Jeznach, Mirosław Kudła*
 
 # kubernetes_learning
 
