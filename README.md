@@ -11,8 +11,9 @@
 ## Dostęp do dashboard (GUI)
 
 - zalogowanie się do klastra
-- zmiana namespacu na kube-system
+- zmiana namespaces na kube-system
 - zmiana typu servisu kubernetes-dashboard
+```
 kubectl edit svc kubernetes-dashboard
 
 spec:
@@ -27,10 +28,11 @@ spec:
     k8s-app: kubernetes-dashboard
   sessionAffinity: None
   type: **LoadBalancer**
-
+```
 - wylistowanie tokenu:
+```
 kubectl -n kube-system describe secret $(kubectl -n kube-system get secret | grep kubernetes-dashboard-token-ssd7h | awk '{print $1}')
-
+```
 ## Tworzenie i zmiana namespace
 
 Utworzenie nowego namespace'u o nazwie "warsztaty"
