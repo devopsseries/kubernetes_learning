@@ -7,6 +7,23 @@
 3. Instalacja i konfiguracja GCloud SDK w celu połączenia się ze swoim klastrem.
 4. Instalacja i konfiguracja aplikacji Księga Gości.
 
+## Tworzenie i zmiana namespace
+
+Utworzenie nowego namespace'u o nazwie "warsztaty"
+```
+kubectl create ns warsztaty
+```
+
+Wylistowanie wszystkich namespaces
+```
+kubectl get ns
+```
+
+Przejście do nowo utworzonego namespace'u
+```
+kubectl config set-context $(kubectl config current-context) --namespace=warsztaty
+```
+
 ## Uruchomienie aplikacji Guestbook z Redis
 
 Aplikacja Guesbook używa Redis do przechowywania danych. Zapisuje swoje dane do głównej instancji Redis i odczytuje je z wielu instancji podrzędnych.
