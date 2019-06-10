@@ -26,10 +26,8 @@ spec:
 ```
 
 ### Utworzenie użytkownika do dashboard
-
+dash-user.yaml
 ```
-pliku dash-user.yaml
-
 apiVersion: v1
 kind: ServiceAccount
 metadata:
