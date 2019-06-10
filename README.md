@@ -7,32 +7,6 @@
 3. Instalacja i konfiguracja GCloud SDK w celu połączenia się ze swoim klastrem.
 4. Instalacja i konfiguracja aplikacji Księga Gości.
 
-
-## Dostęp do dashboard (GUI)
-
-- zalogowanie się do klastra
-- zmiana namespaces na kube-system
-- zmiana typu servisu kubernetes-dashboard
-```
-kubectl edit svc kubernetes-dashboard
-
-spec:
-  clusterIP: 10.7.249.103
-  externalTrafficPolicy: Cluster
-  ports:
-  - nodePort: 31541
-    port: 443
-    protocol: TCP
-    targetPort: 8443
-  selector:
-    k8s-app: kubernetes-dashboard
-  sessionAffinity: None
-  type: **LoadBalancer**
-```
-- wylistowanie tokenu:
-```
-kubectl -n kube-system describe secret $(kubectl -n kube-system get secret | grep kubernetes-dashboard-token-ssd7h | awk '{print $1}')
-```
 ## Tworzenie i zmiana namespace
 
 Utworzenie nowego namespace'u o nazwie "warsztaty"
