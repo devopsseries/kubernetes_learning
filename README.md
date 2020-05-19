@@ -29,7 +29,7 @@ kubectl config set-context $(kubectl config current-context) --namespace=warszta
 Aplikacja Guesbook używa Redis do przechowywania danych. Zapisuje swoje dane do głównej instancji Redis i odczytuje je z wielu instancji podrzędnych.
 
 ### Deployment Redis Master
-W pierwszej kolejności uruchomimy Redis Master. Musimy utworzyć plik manifestu wykonując komendę:
+W pierwszej kolejności uruchomimy Redis Master. Musimy utworzyć plik konfiguracyjny deploymentu wykonując komendę:
 
 ```
 vi redis-master-deployment.yaml
@@ -68,7 +68,7 @@ spec:
         - containerPort: 6379
 ```
 
-Po utworzeniu pliku należy zastosować deployment Redis Master używając polecenia:
+Po utworzeniu pliku należy wykonać polecenie polecenie tworzące  obiekt deployment:
 
 ```
 kubectl apply -f redis-master-deployment.yaml
@@ -89,7 +89,7 @@ kubectl logs -f <nazwa_poda>
 
 ### Usługa Redis Master
 
-Następnie musimy utworzyć usługę Redis Master.  Musimy utworzyć plik manifestu wykonując komendę: 
+Następnie należy utworzyć obiekt typu service Redis Master.
 ```
 vi redis-master-service.yaml
 ```
@@ -112,7 +112,7 @@ spec:
     role: master
     tier: backend
 ```
-Tak jak poprzednio należy zastosować utworzenie usługi z pliku yaml:
+Tak jak poprzednio należy wykonać polecenie które utworzy obiekt:
 ```
 kubectl apply -f redis-master-service.yaml
 ```
@@ -131,7 +131,6 @@ redis-master   ClusterIP   10.0.0.151   <none>        6379/TCP   8s
 ```
 ### Uruchomienie redis slave. 
 
-Deployment ten określa dwie repliki. Oznacza to, że jeśli nie będzie żadnych replik deployment będzie skalował pody do dwóch i odwrotnie, jeśli będzie więcej niż dwie repliki deployment przeskaluje je na dwie.
 W celu utworzenia deploymentu dla redis slave Musimy utworzyć plik manifestu wykonując komendę: 
 ```
 vi redis-slave-deployment.yaml
@@ -179,7 +178,7 @@ spec:
         ports:
         - containerPort: 6379
 ```
-Zastosujmy teraz deployment bazujący na pliku yaml:
+Utworzenie obiektu API deployment:
 ```
 kubectl apply -f redis-slave-deployment.yaml
 ```
@@ -195,7 +194,7 @@ redis-slave-2005841000-fpvqc    0/1       ContainerCreating   0          6s
 redis-slave-2005841000-phfv9    0/1       ContainerCreating   0          6s
 ```
 
-### Tworzenie usługi dla redis slave.
+### Tworzenie servisu dla redis slave.
 
 Aplikacja Guestbook musi komunikować się z podami Redis Slave w celu odczytania danych. 
 Musimy utworzyć plik manifestu wykonując komendę:
@@ -220,7 +219,7 @@ spec:
     role: slave
     tier: backend
 ```
-Zastosujmy usługę:
+Polecenie tworzące  obiekt API typy service:
 ```
 kubectl apply -f redis-slave-service.yaml
 ```
@@ -234,7 +233,8 @@ NAME           TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)    AGE
 redis-master   ClusterIP   10.0.0.151   <none>        6379/TCP   1m
 redis-slave    ClusterIP   10.0.0.223   <none>        6379/TCP   6s
 ```
-Teraz musimy zainstalować aplikację Guestbook. Musimy utworzyć plik manifestu wykonując komendę:
+Następnie instalujemy aplikację Guestbook.
+Tworzenie pliku konfiguracyjnego:
 ```
 vi frontend-deployment.yaml
 ```
@@ -295,11 +295,14 @@ frontend-3823415956-k22zn   1/1       Running   0          54s
 frontend-3823415956-w9gbt   1/1       Running   0          54s
 ```
 
-Teraz musimy utworzyć usługę frontend. 
-Zastosowane usługi redis-slave i redis-master są dostępne tylko w klastrze kontenera, ponieważ domyślnym typem usługi jest ClusterIP. ClusterIP zapewnia pojedynczy adres IP dla zestawu slave-wów, na które wskazuje Usługa. Ten adres IP jest dostępny tylko w klastrze.
+Teraz musimy utworzyć service dla frontend.
+
+Serwisy redis-slave i redis-master są dostępne tylko w klastrze kontenera, ponieważ domyślnym typem usługi jest ClusterIP.
+
+ClusterIP zapewnia pojedynczy adres IP dla zestawu slave-wów, na które wskazuje Usługa. Ten adres IP jest dostępny tylko w klastrze.
 Aby umożliwić gościom dostęp do księgi gości, należy skonfigurować usługę Frontend Service tak, aby była widoczna zewnętrznie, aby klient mógł zażądać usługi poza klastrem kontenerów.
 
-Musimy utworzyć plik manifestu wykonując komendę:
+Tworzymy plik konfiguracyjny wykonując komendę:
 ```
 vi frontend-service.yaml
 ```
@@ -325,11 +328,11 @@ spec:
     app: guestbook
     tier: frontend
 ```
-Zastosuj usługę:
+Wykonaj polecenie:
 ```
 kubectl apply -f frontend-service.yaml
 ```
-Sprawdź dostępne usługi:
+Sprawdź czy obiekty zostały utworzone:
 ```
   kubectl get services 
 ```
