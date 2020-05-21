@@ -7,11 +7,11 @@
 3. Instalacja i konfiguracja GCloud SDK w celu połączenia się ze swoim klastrem.
 4. Instalacja i konfiguracja aplikacji Księga Gości.
 
-# Klonowanie repozytorium kodu.
+## Klonowanie repozytorium kodu.
 
 git clone https://github.com/devopsseries/kubernetes_learning.git
 
-# Utworzenie nowego namespace'u o nazwie "warsztaty"
+## Utworzenie nowego namespace'u o nazwie "warsztaty"
 
 ## Tworzenie i zmiana namespace
 
