@@ -7,13 +7,9 @@
 3. Instalacja i konfiguracja GCloud SDK w celu połączenia się ze swoim klastrem.
 4. Instalacja i konfiguracja aplikacji Księga Gości.
 
-## Klonowanie repozytorium kodu.
-
-git clone https://github.com/devopsseries/kubernetes_learning.git
-
 ## Utworzenie nowego namespace'u o nazwie "warsztaty"
 
-## Tworzenie i zmiana namespace
+### Tworzenie i zmiana namespace
 
 Utworzenie nowego namespace'u o nazwie "warsztaty"
 ```
@@ -31,6 +27,10 @@ kubectl config set-context $(kubectl config current-context) --namespace=warszta
 ```
 
 ## Uruchomienie aplikacji Guestbook z Redis
+
+### Klonowanie repozytorium kodu.
+
+git clone https://github.com/devopsseries/kubernetes_learning.git
 
 Aplikacja Guesbook używa Redis do przechowywania danych. Zapisuje swoje dane do głównej instancji Redis i odczytuje je z wielu instancji podrzędnych.
 
